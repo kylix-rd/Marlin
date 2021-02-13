@@ -217,23 +217,53 @@
 
   #else
 
-    #define LCD_PINS_RS                     PE8
-
     #define BTN_EN1                         PC5
     #define BTN_EN2                         PB0
     #define SD_DETECT_PIN                   PC4
 
     #define LCD_SDSS                        PA4
 
-    #define LCD_PINS_ENABLE                 PE9
-    #define LCD_PINS_D4                     PE10
+    #if ENABLED(FYSETC_MINI_12864)
+      #define DOGLCD_CS                    PE9
+      #define DOGLCD_A0                    PE8
+      #define DOGLCD_SCK                   PA5
+      #define DOGLCD_MOSI                  PA7
 
-    #if ENABLED(ULTIPANEL)
-      #define LCD_PINS_D5                   PE11
-      #define LCD_PINS_D6                   PE12
-      #define LCD_PINS_D7                   PE13
-    #endif
+      #define LCD_BACKLIGHT_PIN            -1
 
+      //#define FORCE_SOFT_SPI                      // Use this if default of hardware SPI causes display problems
+                                                  //   results in LCD soft SPI mode 3, SD soft SPI mode 0
+
+      #define LCD_RESET_PIN                PE10  // Must be high or open for LCD to operate normally.
+
+      #if EITHER(FYSETC_MINI_12864_1_2, FYSETC_MINI_12864_2_0)
+        #ifndef RGB_LED_R_PIN
+          #define RGB_LED_R_PIN            PE11
+        #endif
+        #ifndef RGB_LED_G_PIN
+          #define RGB_LED_G_PIN            PE12
+        #endif
+        #ifndef RGB_LED_B_PIN
+          #define RGB_LED_B_PIN            PE13
+        #endif
+      #elif ENABLED(FYSETC_MINI_12864_2_1)
+        #define NEOPIXEL_PIN               PE11
+      #endif
+
+    #else                                         // !FYSETC_MINI_12864
+
+      #define LCD_PINS_RS                     PE8
+
+      #define LCD_PINS_ENABLE                 PE9
+      #define LCD_PINS_D4                     PE10
+
+      #if ENABLED(ULTIPANEL)
+        #define LCD_PINS_D5                   PE11
+        #define LCD_PINS_D6                   PE12
+        #define LCD_PINS_D7                   PE13
+      #endif
+
+    #endif // !FYSETC_MINI_12864
   #endif
 
   // Alter timing for graphical display
