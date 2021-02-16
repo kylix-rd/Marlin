@@ -252,8 +252,13 @@
     #if ENABLED(FYSETC_MINI_12864)
       #define DOGLCD_CS                     EXP1_08_PIN
       #define DOGLCD_A0                     EXP1_07_PIN
+      #define DOGLCD_MOSI                   EXP2_05_PIN
+      #define DOGLCD_MISO                   EXP2_10_PIN
+      #define DOGLCD_SCK                    EXP2_09_PIN
 
       #define LCD_BACKLIGHT_PIN             -1
+
+      #define FORCE_SOFT_SPI
 
       #define LCD_RESET_PIN                 EXP1_06_PIN  // Must be high or open for LCD to operate normally.
 
