@@ -428,7 +428,7 @@ void CardReader::manage_media() {
     uint8_t old_stat = prev_stat;
     prev_stat = stat;                 // Change now to prevent re-entry
 
-    if (stat || old_stat == 2) {                       // Media Inserted
+    if (stat) {                       // Media Inserted
       safe_delay(500);                // Some boards need a delay to get settled
       if (TERN1(SD_IGNORE_AT_STARTUP, old_stat != 2))
         mount();                      // Try to mount the media
