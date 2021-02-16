@@ -1029,6 +1029,11 @@ void setup() {
     SETUP_RUN(controllerFan.setup());
   #endif
 
+  #if ENABLED(SDSUPPORT)
+    SETUP_RUN(spiBegin());
+    SETUP_RUN(spiInit(SPI_SPEED_5));
+  #endif
+
   // UI must be initialized before EEPROM
   // (because EEPROM code calls the UI).
 
