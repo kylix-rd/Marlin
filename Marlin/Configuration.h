@@ -1008,7 +1008,7 @@
 #define XY_PROBE_SPEED (133*60)
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_SPEED_FAST (10*60)
+#define Z_PROBE_SPEED_FAST (5*60)*4
 
 // Feedrate (mm/min) for the "accurate" probe of each point
 #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
@@ -2431,12 +2431,19 @@
   //#define TFT_RES_480x320
 #endif
 
-//
-// Skip autodetect and force specific TFT driver
-// Mandatory for SPI screens with no MISO line
-// Available drivers are: ST7735, ST7789, ST7796, R61505, ILI9328, ILI9341, ILI9488
-//
-//#define TFT_DRIVER AUTO
+/**
+ * TFT UI - User Interface Selection. Enable one of the following options:
+ *
+ *   TFT_CLASSIC_UI - Emulated DOGM - 128x64 Upscaled
+ *   TFT_COLOR_UI   - Marlin Default Menus, Touch Friendly, using full TFT capabilities
+ *   TFT_LVGL_UI    - A Modern UI using LVGL
+ *
+ *   For LVGL_UI also copy the 'assets' folder from the build directory to the
+ *   root of your SD card, together with the compiled firmware.
+ */
+//#define TFT_CLASSIC_UI
+//#define TFT_COLOR_UI
+//#define TFT_LVGL_UI
 
 #if ENABLED(TFT_LVGL_UI)
   //#define MKS_WIFI_MODULE  // MKS WiFi module
@@ -2573,16 +2580,16 @@
 #endif
 
 // Support for Adafruit NeoPixel LED driver
-//#define NEOPIXEL_LED
+#define NEOPIXEL_LED
 #if ENABLED(NEOPIXEL_LED)
-  #define NEOPIXEL_TYPE   NEO_GRBW // NEO_GRBW / NEO_GRB - four/three channel driver type (defined in Adafruit_NeoPixel.h)
-  #define NEOPIXEL_PIN     4       // LED driving pin
+  #define NEOPIXEL_TYPE   NEO_GRB  // NEO_GRBW / NEO_GRB - four/three channel driver type (defined in Adafruit_NeoPixel.h)
+  #define NEOPIXEL_PIN    PC12     // LED driving pin
   //#define NEOPIXEL2_TYPE NEOPIXEL_TYPE
   //#define NEOPIXEL2_PIN    5
-  #define NEOPIXEL_PIXELS 30       // Number of LEDs in the strip. (Longest strip when NEOPIXEL2_SEPARATE is disabled.)
+  #define NEOPIXEL_PIXELS 17       // Number of LEDs in the strip. (Longest strip when NEOPIXEL2_SEPARATE is disabled.)
   #define NEOPIXEL_IS_SEQUENTIAL   // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
   #define NEOPIXEL_BRIGHTNESS 127  // Initial brightness (0-255)
-  //#define NEOPIXEL_STARTUP_TEST  // Cycle through colors at startup
+  #define NEOPIXEL_STARTUP_TEST    // Cycle through colors at startup
 
   // Support for second Adafruit NeoPixel LED driver controlled with M150 S1 ...
   //#define NEOPIXEL2_SEPARATE
